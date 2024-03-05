@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "fnrmoNbmm6zBHQr9JX1z1rHY8KILkHVJTTcra7792aA=",
+  "Source": "url-shortner-api",
+  "BasePath": "_content/url-shortner-api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

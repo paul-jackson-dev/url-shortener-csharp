@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34408.163
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "url-shortner-api", "url-shortner-api\url-shortner-api.csproj", "{E7C51D89-2BBD-48A5-B09E-32B282112ADF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E7C51D89-2BBD-48A5-B09E-32B282112ADF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7C51D89-2BBD-48A5-B09E-32B282112ADF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7C51D89-2BBD-48A5-B09E-32B282112ADF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7C51D89-2BBD-48A5-B09E-32B282112ADF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D76C0A6E-C46D-4E56-979B-5D1303238D77}
+	EndGlobalSection
+EndGlobal

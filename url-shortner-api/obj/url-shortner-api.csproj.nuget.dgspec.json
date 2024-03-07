@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\great\\OneDrive\\Desktop\\url-shortener-csharp\\url-shortner-api\\url-shortner-api\\url-shortner-api.csproj": {}
+    "C:\\Users\\great\\OneDrive\\Desktop\\url-shortener-csharp\\url-shortner-api\\url-shortner-api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\great\\OneDrive\\Desktop\\url-shortener-csharp\\url-shortner-api\\url-shortner-api\\url-shortner-api.csproj": {
+    "C:\\Users\\great\\OneDrive\\Desktop\\url-shortener-csharp\\url-shortner-api\\url-shortner-api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\great\\OneDrive\\Desktop\\url-shortener-csharp\\url-shortner-api\\url-shortner-api\\url-shortner-api.csproj",
+        "projectUniqueName": "C:\\Users\\great\\OneDrive\\Desktop\\url-shortener-csharp\\url-shortner-api\\url-shortner-api.csproj",
         "projectName": "url-shortner-api",
-        "projectPath": "C:\\Users\\great\\OneDrive\\Desktop\\url-shortener-csharp\\url-shortner-api\\url-shortner-api\\url-shortner-api.csproj",
+        "projectPath": "C:\\Users\\great\\OneDrive\\Desktop\\url-shortener-csharp\\url-shortner-api\\url-shortner-api.csproj",
         "packagesPath": "C:\\Users\\great\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\great\\OneDrive\\Desktop\\url-shortener-csharp\\url-shortner-api\\url-shortner-api\\obj\\",
+        "outputPath": "C:\\Users\\great\\OneDrive\\Desktop\\url-shortener-csharp\\url-shortner-api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\great\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,13 +40,39 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.1, )"
             },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
             "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[8.0.1, )"
             }
@@ -70,7 +96,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

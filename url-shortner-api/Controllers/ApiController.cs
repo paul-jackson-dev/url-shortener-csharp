@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using url_shortner_api.Data;
 using url_shortner_api.Models;
@@ -6,7 +7,7 @@ using url_shortner_api.Models;
 namespace url_shortner_api.Controllers
 {
     [ApiController]
-    [Route("api")]
+    [Route("-/api")]
     public class ApiController : Controller
     {
         UrlShortnerDbContext context;
@@ -34,6 +35,13 @@ namespace url_shortner_api.Controllers
                 return Ok(test.Name);
             }
             return BadRequest(); // returns errors in response
+        }
+        [HttpGet]
+        [Route("auth-test")]
+        [Authorize(Policy = "api")] //auth with api policy in Program.cs
+        public ActionResult Auth()
+        {
+            return Ok("you are auth'd.");
         }
     }
 }

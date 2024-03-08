@@ -15,13 +15,14 @@ Content-Type: application/json
 ###
 
 //REGISTER
-POST {{baseUrl}}/auth/register
+POST {{baseUrl}}/auth/signup
 Content-Type: application/json
 
 {
   "first" : "paul",
   "email" : "dave5@aol.com",
-  "password" : "bigSafePassword4d5ed5sdf6@#$"
+  "password" : "bigSafePassword4d5ed5sdf6@#$",
+  "confirmpassword" : "bigSafePassword4d5ed5sdf6@#$"
 }
 
 ###
@@ -31,7 +32,7 @@ POST {{baseUrl}}/auth/login
 Content-Type: application/json
 
 {
-  "email" : "dave@aol.com",
+  "email" : "dave5@aol.com",
   "password" : "bigSafePassword4d5ed5sdf6@#$"
 }
 
@@ -44,6 +45,5 @@ GET {{baseUrl}}/auth-test
 
 //TEST AUTH WITH BEARER JWT
 GET {{baseUrl}}/auth-test
-Authorization: Bearer CfDJ8MlgwzBTFQxOhbqBKzMA5Dk0sQT5IxYWPqM1LoIWfBfACHyhnRuuUpkgPC4GZdmjy7CEWecv7wLR1JLsLkJKQDH5t8DAFp9dsttlMohbPlWXt-pbQrbvjSJN1v7m6HGwgf3cx3l_S-vsTBGh48nqpQnDLjKASSV7joHIRNG_0jvgKdNb6KgCFortrc4F1Mlh1KCYrkuzTWtZQimNy1wFGUoo_Us7yX0BMXqwiV9fcHRn6Xwze9tRSccKY7o-A6LIil8c_bvHBh4po6_LErigHOrHnwk9cu7QfkCsBMhBmNQ1Fgbt0R0MAW-siNm1RDJ2E6yh4QHq1h704GGkM4CfDaPXzs8HbAzG7W-AP3UpjMmx-9kvU_LV0nI8XNJ_IT4_LZ-46O7MDxF7ymq5usRdp8a6OlV_bVgzY5QFvq3ckA-UnXWAfAnvwJwc5aVkZj92BAg7iek2OGXo9YHI_VV7Cac31R67MW9RQGJVE6whd8PbJ_e0aYq9mT0Mtx3LBJ9UNtZ1hawalUhhMHnRPg8O77DV6bLXZmCKwWQCPsZN5DIrpBc9sNtWuRrI-_z6_bH6xhs_Jjp0ms0QiSbBYdXBVGDCY1z-r05Lz5L02sPv8JyIyLLJk_Qg6DYMlfAqBFKb9SVktHbWMGf9xs8yt1gKhWG-9TiLMaD2vCfFNYyS96s-lyj8X8QcGk-b2DbSKeZqWg
-
+Authorization: Bearer CfDJ8MlgwzBTFQxOhbqBKzMA5DnC3Tc2jJOreHDn-1QOomRiRHjfipPRyxC6c9qCcjvxYwX9xX_9C04W47u3m2M8ht3smjzxOD29OFxqXVsgidIbBTOXShkgQQwXUIhX8vQ8f0CVn2a3LX0EOOnsp3QgouTCopa1LByHjDP3CfGkkSuh8gxeOeXfmM_z9IvAQd95_p5JRCR2dLbGazx8jYkHBQo0WA3IkA7pVYf-YNU1nhL09dGlss5_V6tziYJyemubSHS2hIQd2fKnQ4R9vX65czyRZCbnCFYIKyBqfaSmLAX0fttN1_WGIUDICpC0bZ13UvM5tVYO0nEkyc49ykyB-mvW2Se47i2gl2kgPBTElwBceEbqeFTFNNDmp5OtCoRie3fDhYp54pqgbjHbYc5wUNN5rj5aWzPOnNVdtCrPt0kGszw9Jpl1lvTqyx2Y2SUA8zOFwnJi0GFlp5LCXXaopPYDlXJu_LV54a4kQKhyQp26G-wHL0lRflAvyP7fR_SN-ipfK6R67luK3WxpYtRnLme08VqRQSfy-T9I7mS-YUn_Ys1Jhsogn_Uz6i1EWNG8jIc16x_talFr8K1_XNzDFhnfHCfpHUhhgOMeOk-G50pTR_nwdTl3lZ1Q7F77CSvVMwXPSOgdSoJWBI-PIwz0XhvQXTkxQ-hYsi11jAgCW6eeDQQ4L--G65-PQaA3J3O61w
 ###

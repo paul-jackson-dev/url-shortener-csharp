@@ -9,6 +9,8 @@ namespace url_shortner_api.Data
     {
         public DbSet<Test> Tests { get; set; }
 
+        public DbSet<UrlInfo> UrlInfo { get; set; }
+
         public UrlShortnerDbContext(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

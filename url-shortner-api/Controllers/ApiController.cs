@@ -67,5 +67,36 @@ namespace url_shortner_api.Controllers
         {
             return Ok("you are auth'd.");
         }
+
+        // /-/api/url/
+        [HttpPost]
+        [Route("url/create")]
+        public ActionResult CreateUrl([FromBody] CreateUrlDto createUrlDto)
+        {
+            UrlInfo url = new UrlInfo()
+            {
+                LongUrl = createUrlDto.LongUrl,
+                ShortUrl = UrlInfo.GenerateShortUrl()
+            };
+            context.UrlInfo.Add(url);
+            context.SaveChanges();
+
+            return Ok(url);
+        }
+
+        [HttpGet]
+        [Route("url/redirect/{shortUrl}")]
+        public ActionResult RedirectUrl(string shortUrl)
+        {
+            Debug.WriteLine(shortUrl);
+            UrlInfo url = context.UrlInfo.Single(s => s.ShortUrl == shortUrl); // lookup using ShortUrl as the search parameter
+
+            if (url == null)
+            {
+                return NotFound();
+            }
+
+            return Redirect(url.LongUrl);
+        }
     }
 }

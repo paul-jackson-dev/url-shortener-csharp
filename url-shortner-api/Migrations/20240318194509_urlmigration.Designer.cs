@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using url_shortner_api.Data;
 
@@ -10,9 +11,11 @@ using url_shortner_api.Data;
 namespace url_shortner_api.Migrations
 {
     [DbContext(typeof(UrlShortnerDbContext))]
-    partial class UrlShortnerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240318194509_urlmigration")]
+    partial class urlmigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.1");
@@ -161,31 +164,7 @@ namespace url_shortner_api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tests");
-                });
-
-            modelBuilder.Entity("url_shortner_api.Models.UrlInfo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("LongUrl")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("ShortUrl")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UrlInfo");
+                    b.ToTable("Test");
                 });
 
             modelBuilder.Entity("url_shortner_api.Models.User", b =>
@@ -305,15 +284,6 @@ namespace url_shortner_api.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("url_shortner_api.Models.UrlInfo", b =>
-                {
-                    b.HasOne("url_shortner_api.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

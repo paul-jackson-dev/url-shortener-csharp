@@ -73,10 +73,16 @@ namespace url_shortner_api.Controllers
         [Route("url/create")]
         public ActionResult CreateUrl([FromBody] CreateUrlDto createUrlDto)
         {
+            string? lastShortUrl = context.UrlInfo
+                .OrderByDescending(i => i.Id)
+                .FirstOrDefault()
+                ?.ShortUrl; // get the string or null
+
             UrlInfo url = new UrlInfo()
             {
                 LongUrl = createUrlDto.LongUrl,
-                ShortUrl = UrlInfo.GenerateShortUrl()
+                ShortUrl = UrlInfo.GenerateShortUrl(lastShortUrl),
+                SoftDelete = false
             };
             context.UrlInfo.Add(url);
             context.SaveChanges();

@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol;
 using System.Diagnostics;
+using System.Security.Claims;
 using url_shortner_api.Data;
 using url_shortner_api.Dtos;
 using url_shortner_api.Models;
+using url_shortner_api.Services;
 
 namespace url_shortner_api.Controllers
 {
@@ -12,13 +15,15 @@ namespace url_shortner_api.Controllers
     [Route("-/api")]
     public class ApiController : Controller
     {
-        UrlShortnerDbContext context;
-        UserManager<User> userManager;
+        ControllerServices _services;
+        UrlShortnerDbContext _context;
+        UserManager<AppUser> _userManager;
 
-        public ApiController(UrlShortnerDbContext dbContext, UserManager<User> aUserManager)
+        public ApiController(UrlShortnerDbContext dbContext, UserManager<AppUser> aUserManager)
         {
-            context = dbContext;
-            userManager = aUserManager;
+            _services = new ControllerServices(dbContext);
+            _userManager = aUserManager;
+
         }
 
         [HttpPost]
@@ -27,14 +32,14 @@ namespace url_shortner_api.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User()
+                AppUser user = new AppUser()
                 {
                     UserName = registrationDto.Email,
                     Email = registrationDto.Email,
                     First = registrationDto.First,
                 };
 
-                var result = await userManager.CreateAsync(user, registrationDto.Password);
+                var result = await _userManager.CreateAsync(user, registrationDto.Password);
                 return Ok(new { Message = "Registration successful." });
             }
 
@@ -48,24 +53,15 @@ namespace url_shortner_api.Controllers
             return Ok("api is up and running.");
         }
 
-        [HttpPost]
-        [Route("")]
-        public ActionResult Index([FromBody] Test test)
-        {
-            if (ModelState.IsValid)
-            {
-                context.Tests.Add(test);
-                context.SaveChanges();
-                return Ok(test.Name);
-            }
-            return BadRequest(); // returns errors in response
-        }
         [HttpGet]
         [Route("auth-test")]
         [Authorize(Policy = "api")] //auth with api policy in Program.cs
         public ActionResult Auth()
         {
-            return Ok("you are auth'd.");
+            AppUser user = _services.GetAppUserByUsername(HttpContext);
+            Debug.WriteLine(user.First, user.UserName, user.Email);  
+
+            return Ok("you are auth'd. " + user.First);
         }
 
         // /-/api/url/
@@ -73,19 +69,12 @@ namespace url_shortner_api.Controllers
         [Route("url/create")]
         public ActionResult CreateUrl([FromBody] CreateUrlDto createUrlDto)
         {
-            string? lastShortUrl = context.UrlInfo
-                .OrderByDescending(i => i.Id)
-                .FirstOrDefault()
-                ?.ShortUrl; // get the string or null
-
-            UrlInfo url = new UrlInfo()
+            UrlInfo url = _services.CreateUrlInfo(createUrlDto);
+         
+            if (url == null)
             {
-                LongUrl = createUrlDto.LongUrl,
-                ShortUrl = UrlInfo.GenerateShortUrl(lastShortUrl),
-                SoftDelete = false
-            };
-            context.UrlInfo.Add(url);
-            context.SaveChanges();
+                return BadRequest();
+            }
 
             return Ok(url);
         }
@@ -94,8 +83,8 @@ namespace url_shortner_api.Controllers
         [Route("url/redirect/{shortUrl}")]
         public ActionResult RedirectUrl(string shortUrl)
         {
-            Debug.WriteLine(shortUrl);
-            UrlInfo url = context.UrlInfo.Single(s => s.ShortUrl == shortUrl); // lookup using ShortUrl as the search parameter
+            //Debug.WriteLine(shortUrl);
+            UrlInfo url = _services.GetShortUrlRedirect(shortUrl);
 
             if (url == null)
             {

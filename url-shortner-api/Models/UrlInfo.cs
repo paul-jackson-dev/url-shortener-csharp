@@ -13,7 +13,7 @@ namespace url_shortner_api.Models
         public bool SoftDelete { get; set; }
 
         //User not required
-        public User? User { get; set; }
+        public AppUser? AppUser { get; set; }
 
         public UrlInfo()
         {

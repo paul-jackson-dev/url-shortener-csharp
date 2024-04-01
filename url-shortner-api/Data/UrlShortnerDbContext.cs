@@ -5,9 +5,8 @@ using url_shortner_api.Models;
 
 namespace url_shortner_api.Data
 {
-    public class UrlShortnerDbContext : IdentityDbContext<User, IdentityRole, string>
+    public class UrlShortnerDbContext : IdentityDbContext<AppUser, IdentityRole, string>
     {
-        public DbSet<Test> Tests { get; set; }
 
         public DbSet<UrlInfo> UrlInfo { get; set; }
 

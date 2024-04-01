@@ -14,7 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<UrlShortnerDbContext>(o => o.UseSqlite("Data Source=sqlite.db;")); // add DbContext to services and connect to SQLite // possibly consider adding options in the future
 
-builder.Services.AddDefaultIdentity<User>(options =>
+builder.Services.AddDefaultIdentity<AppUser>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
     options.Password.RequireDigit = false;
@@ -30,6 +30,9 @@ builder.Services.AddDefaultIdentity<User>(options =>
 //Add Identity handling of JWTs
 builder.Services.AddAuthentication()
     .AddBearerToken(IdentityConstants.BearerScheme); // we have a authentication scheme and want to support bearer tokens
+
+//builder.Services.AddIdentityApiEndpoints<User>() // another way to add login Identity login endpoints
+//    .AddEntityFrameworkStores<UrlShortnerDbContext>();
 
 builder.Services.AddAuthorizationBuilder() // add an auth policy to use with [Authorize]
     .AddPolicy("api", policy =>
@@ -55,6 +58,6 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MapGroup("-/api/auth") // create register, login, logout endpoints -/api/auth/register 
-    .MapIdentityApi<User>();
+    .MapIdentityApi<AppUser>();
 
 app.Run();

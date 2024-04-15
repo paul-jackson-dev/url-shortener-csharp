@@ -50,16 +50,29 @@ namespace url_shortner_api.Controllers
         [Route("")]
         public ActionResult Index()
         {
+            var userName = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Debug.WriteLine(userName);
+            string appUser = _userManager.GetUserName(HttpContext.User);
+            Debug.WriteLine(appUser);
+            Debug.WriteLine("hwerawerhere");
             return Ok("api is up and running.");
         }
 
         [HttpGet]
         [Route("auth-test")]
-        [Authorize(Policy = "api")] //auth with api policy in Program.cs
+        [Authorize] //auth with api policy in Program.cs
         public ActionResult Auth()
         {
+            //var appUser = _userManager.GetUserName(HttpContext.User);
+            //Debug.WriteLine(appUser);
+            //Debug.WriteLine("Asdfasdfasdfasdfasdfasdfsad");
+            var claims = HttpContext.User.Claims.ToList();
+            foreach (Claim claim in claims)
+            {
+                Debug.WriteLine(claim.Value.ToString());
+            }
             AppUser user = _services.GetAppUserByUsername(HttpContext);
-            Debug.WriteLine(user.First, user.UserName, user.Email);  
+            //Debug.WriteLine(user.First, user.UserName, user.Email);  
 
             return Ok("you are auth'd. " + user.First);
         }
@@ -69,8 +82,18 @@ namespace url_shortner_api.Controllers
         [Route("url/create")]
         public ActionResult CreateUrl([FromBody] CreateUrlDto createUrlDto)
         {
-            UrlInfo url = _services.CreateUrlInfo(createUrlDto);
-         
+            var appUser = _userManager.GetUserName(HttpContext.User);
+            var claims = HttpContext.User.Claims.ToList();
+            foreach (Claim claim in claims)
+            {
+                Debug.WriteLine(claim.Value.ToString());
+            }
+            Debug.WriteLine(appUser);
+            Debug.WriteLine("Asdfasdfasdfasdfasdfasdfsad");
+            Debug.WriteLine(Request.Headers.Authorization.ToString());
+            AppUser user = _services.GetAppUserByUsername(HttpContext);
+            UrlInfo url = _services.CreateUrlInfo(createUrlDto, user);
+
             if (url == null)
             {
                 return BadRequest();

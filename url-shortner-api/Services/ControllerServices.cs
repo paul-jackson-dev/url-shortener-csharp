@@ -19,16 +19,19 @@ namespace url_shortner_api.Services
         // get AppUser or return null
         public AppUser GetAppUserByUsername(HttpContext httpContext)
         {
-            if (httpContext != null)
+            try
             {
                 string username = httpContext.User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
-                AppUser? appUser = _context.Users.FirstOrDefault(u =>u.UserName == username);
+                AppUser? appUser = _context.Users.FirstOrDefault(u => u.UserName == username);
                 return appUser;
             }
-            return null;
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
-        public UrlInfo CreateUrlInfo(CreateUrlDto createUrlDto)
+        public UrlInfo CreateUrlInfo(CreateUrlDto createUrlDto, AppUser user)
         {
             // get the last short url
             string? lastShortUrl = _context.UrlInfo
@@ -41,7 +44,8 @@ namespace url_shortner_api.Services
             {
                 LongUrl = createUrlDto.LongUrl,
                 ShortUrl = UrlInfo.GenerateShortUrl(lastShortUrl),
-                SoftDelete = false
+                SoftDelete = false,
+                AppUser = user // if signed in, else null
             };
             
             if (url == null)

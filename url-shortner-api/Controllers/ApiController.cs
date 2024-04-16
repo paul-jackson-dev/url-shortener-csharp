@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol;
@@ -49,28 +51,52 @@ namespace url_shortner_api.Controllers
         [HttpGet]
         [Route("")]
         public ActionResult Index()
+        //public async Task<ActionResult> IndexAsync()
         {
-            var userName = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            Debug.WriteLine(userName);
-            string appUser = _userManager.GetUserName(HttpContext.User);
-            Debug.WriteLine(appUser);
+            //var userName = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //Debug.WriteLine(userName);
+            //string appUser = _userManager.GetUserName(HttpContext.User);
+            //Debug.WriteLine(appUser);
+            Debug.WriteLine(HttpContext.Request.Headers.ToString());
+            var authorizationHeader = HttpContext.Request.Headers["access_token"];
+            string accessToken = string.Empty;
+            if (authorizationHeader.ToString().StartsWith("Bearer"))
+            {
+                accessToken = authorizationHeader.ToString().Substring("Bearer ".Length).Trim();
+                Debug.WriteLine(accessToken);
+            }
+
+            //var identity = new ClaimsIdentity(IdentityConstants.BearerScheme, ClaimTypes.Name, ClaimTypes.Role);
+            //identity.AddClaim(new Claim(ClaimTypes.Name, TempData["Username"].ToString()));
+            //var principal = new ClaimsPrincipal(identity);
+            //await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties { IsPersistent = true });
+
+            Debug.WriteLine(HttpContext.User.Identity.IsAuthenticated);
+            var claims = HttpContext.User.Claims;
+            foreach (Claim claim in claims)
+            {
+                Debug.WriteLine(claim.Value.ToString());
+            }
+
+            AppUser user = _services.GetAppUserByUsername(HttpContext);
+            Debug.WriteLine(user.First);
             Debug.WriteLine("hwerawerhere");
             return Ok("api is up and running.");
         }
 
         [HttpGet]
         [Route("auth-test")]
-        [Authorize] //auth with api policy in Program.cs
+        [Authorize(Policy = "api")] //auth with api policy in Program.cs
         public ActionResult Auth()
         {
             //var appUser = _userManager.GetUserName(HttpContext.User);
             //Debug.WriteLine(appUser);
             //Debug.WriteLine("Asdfasdfasdfasdfasdfasdfsad");
-            var claims = HttpContext.User.Claims.ToList();
-            foreach (Claim claim in claims)
-            {
-                Debug.WriteLine(claim.Value.ToString());
-            }
+            //var claims = HttpContext.User.Claims;
+            //foreach (Claim claim in claims)
+            //{
+            //    Debug.WriteLine(claim.Value.ToString());
+            //}
             AppUser user = _services.GetAppUserByUsername(HttpContext);
             //Debug.WriteLine(user.First, user.UserName, user.Email);  
 

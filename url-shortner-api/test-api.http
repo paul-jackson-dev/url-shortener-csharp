@@ -1,16 +1,29 @@
 @baseUrl=https://localhost:5001/-/api
+@bearer=CfDJ8MlgwzBTFQxOhbqBKzMA5Dl0qjvOdd-lwYs65EaTRDtrDPbjFW5trKE_-GIkI0GaaeT6_kzIAu_9mFIgjsfYOvgk0fLpofAYEFjF4VmNBsVk_pMkAQdhWdJntguF1ICyoRPA0mMI7LMDfTgi8g6CFIXe8MsPOdaCNzciywre5unGTDNkXPO6QW26JrtkcGPjps7N4U-Td5vT4WLTDJT1rV57aND3gSlra7GXKfMHkVAVfMWCc1gHeBBYnkKDTWLJPYSU4BuFGeYINRpH1ueAXeeIij4LczTYxWFRxQ8EO6EQf0Feo2OlYmF8-nteMO8H6uWCaZ4ZHoETx2eug3GWaaj6JZqkhxBOiL3jGiqLaElB1-Eq2IYglazn6sNnZOFPd8zuw8OTU9tlvM1FLD1su6SZImX8Cet_iF45kBDs7Zxjl2V8EfwgBf3zk7S6ryH39hfYC1-TPomXWX4s8OWEniiNEwFChkHmvkiJeLHwzqFFDcUxMqs5VRwjs64vehRMQo1kbm05KWVHP0JPHrTN8q3WVp0vR_OI6Ru-YLNXZgb5uB0ueZ5RmCj2XFzghJwdurDVc4BLPRCYCvlpQjj8IDBUGQkCTmT40327UJEPnk6nq0IklLa0Y32zDrUwsf0MkVT2PpSH0BjE39vIoelpTQtPBg4LcICC0f0SUGFEJlB6DvtIRAGND9zjpgTCMU-GFw
+  
+
+
 GET {{baseUrl}}
+Authorization: Bearer {{bearer}}
 
 ###
 
+POST {{baseUrl}}
+Content-Type: application/json
+
+{
+    "name" : "Ronald"
+}
+
+###
 
 //REGISTER
 POST {{baseUrl}}/auth/signup
 Content-Type: application/json
 
 {
-  "first" : "paulo",
-  "email" : "dave6@aol.com",
+  "first" : "paul",
+  "email" : "dave5@aol.com",
   "password" : "bigSafePassword4d5ed5sdf6@#$",
   "confirmpassword" : "bigSafePassword4d5ed5sdf6@#$"
 }
@@ -22,19 +35,9 @@ POST {{baseUrl}}/auth/login
 Content-Type: application/json
 
 {
-  "email" : "dave6@aol.com",
+  "email" : "dave5@aol.com",
   "password" : "bigSafePassword4d5ed5sdf6@#$"
 }
-
-###
-// /login
-# POST https://localhost:5001/login
-# Content-Type: application/json
-
-# {
-#   "email" : "dave6@aol.com",
-#   "password" : "bigSafePassword4d5ed5sdf6@$"
-# }
 
 ###
 
@@ -46,31 +49,17 @@ GET {{baseUrl}}/auth-test
 //TEST AUTH WITH BEARER TOKEN
 GET {{baseUrl}}/auth-test
 Authorization: Bearer {{bearer}}
-
 ###
 
-//CREATE SHORT URL without User
+//CREATE SHORT URL
 POST {{baseUrl}}/url/create
 Content-Type: application/json
 
 {
   "longUrl" : "http://launchcode.org"
 }
-
-###
-
-//CREATE SHORT URL with User
-POST {{baseUrl}}/url/create
-Content-Type: application/json
-
-{
-  "longUrl" : "http://launchcode.org"
-}
-
-
-
 ###
 
 //GET SHORT URL REDIRECT TO LONG URL
-GET {{baseUrl}}/url/redirect/a
+GET {{baseUrl}}/url/redirect/aaa
 ###
